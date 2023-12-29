@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load i18n django_bootstrap5 %}
+{% block title %}Student Details{% endblock title %}
+{% block content %}
+  <div class="container">    
+    <form method="post">
+        <div class="heading text-center mt-3 bg-dark text-white">
+          <h1>Add your details </h1>
+        </div>
+        <div class="container col-md-7 col-lg-8">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-6">
+              {% bootstrap_field form.student_name show_label=False %}
+            </div>
+             {% comment %} <div class="col-sm-6">
+              {% bootstrap_field form.student_name show_label=False %}
+            </div>  {% endcomment %}
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_age show_label=False %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_address show_label=False %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_contact show_label=False %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_email show_label=False %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_standard show_label=False %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_rollno show_label=False %}
+            </div>
+          </div>
+          <button type="submit" class="  btn btn-success ms-5">save</button>
+        </div>
+      </form>
+  </div>
+{% endblock %}
+
+
+        
+
+
+
+
+       {% comment %} <div class="heading text-center mt-3 bg-transparent text-body">
+        <h1>Add your deatails </h1>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Name</span>
+            <input Name="student_name" type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">age</span>
+            <input Name="student_age" type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Address</span>
+            <input type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Contact</span>
+            <input type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Standard</span>
+            <input type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Email</span>
+            <input type="text" class="form-control">
+          </div>
+          <button type="submit" class="  btn btn-success ms-3">save</button>
+        </div>
+    </form> {% endcomment %} 
+        

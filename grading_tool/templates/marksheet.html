@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% block title %}Student List{% endblock %}
+{% block content %}
+<div class="heading text-center mt-3 bg-dark text-white">
+  <h1>Marksheet</h1>
+</div>
+
+<div class="container col-sm-6  mt-3">
+  <h5>STUDENT NAME: {{latest_marks.students.student_name }}</h5>
+  <img src="{{latest_marks.students.student_photo.url}}" class="rounded float-end" height ="100px" alt= "student_photo">
+  <h5>STUDENT CLASS:{{latest_marks.students.student_standard }} </h5>
+  <h5>STUDENT ROLL NO:{{latest_marks.students.student_rollno }} </h5> 
+  
+</div>
+
+
+       
+  
+  <div class="container col-sm-7  mt-3">
+    <div class="col-sm-3 mb-3">
+      {% comment %} <label class="form-label" for="id_term_select">Term</label> {% endcomment %}
+      <select name="term" class="form-select" id="id_term_select">
+        <option value="First Term" selected="">First Term</option>
+        <option value="Second Term">Second Term</option>
+        <option value="Final Term">Final Term</option>
+      </select>         
+    </div>
+    {% comment %} <a href="{% url 'generate_pdf' %}">Download Marksheet PDF</a> {% endcomment %}
+  {% if latest_marks %}
+    <table class="table table-responsive" id="marksheet_table">
+      <thead>
+        <tr>
+          <th>S.N</th>
+          <th>Name of Subject</th>
+          <th>Full Marks</th>
+          <th>Pass Marks </th>
+          <th>Obtained Marks</th>
+          <th>Pass/Fail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>English</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="english">
+            {{latest_marks.marks_english }}</td>
+            <td>
+              {% if latest_marks.marks_english >= 40 %}
+                   Pass
+              {% else %}
+                   Fail     
+              {% endif %}     
+            </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Nepali</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="nepali">{{latest_marks.marks_nepali}}</td>
+          <td>
+            {% if latest_marks.marks_nepali >= 40 %}
+                 Pass
+            {% else %}
+                 Fail     
+            {% endif %}     
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Math</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="math">{{latest_marks.marks_math}}</td>
+          <td>
+            {% if latest_marks.marks_math >= 40 %}
+                 Pass
+            {% else %}
+                 Fail     
+            {% endif %}     
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Science</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="science">{{latest_marks.marks_science}}</td>
+          <td>
+            {% if latest_marks.marks_science >= 40 %}
+                 Pass
+            {% else %}
+                 Fail     
+            {% endif %}     
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Social</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="social">{{latest_marks.marks_social}}</td>
+          <td>
+            {% if latest_marks.marks_social >= 40 %}
+                 Pass
+            {% else %}
+                 Fail     
+            {% endif %}     
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>E.P.H</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="eph">{{latest_marks.marks_eph}}</td>
+          <td>
+            {% if latest_marks.marks_eph >= 40 %}
+                 Pass
+            {% else %}
+                 Fail     
+            {% endif %}     
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Occupation</td>
+          <td>100</td>
+          <td>40</td>
+          <td id="occupation">{{latest_marks.marks_occupation}}</td>
+          <td>
+            {% if latest_marks.marks_occupation >= 40 %}
+                 Pass
+            {% else %}
+                 Fail     
+            {% endif %}     
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Total</td>
+          <td>700</td>
+          <td>280</td>
+          <td id="obtained" >{{latest_marks.Obtained_marks}}</td>
+           <td></td>                                                 
+        </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id ="percentage">Total Percentage {{latest_marks.Calculate_percentage}} '%'</td>
+      </tr>
+      </tbody>
+      <tbody>
+        
+          
+           
+      
+    </table>
+    <div id="term_error" class="alert alert-danger" role="alert" style="display:none">
+      Marks Not Available For This Term!!!!
+    </div>
+  {% else %}
+    <div class="alert alert-danger" role="alert">
+      Marks Not Available For This Student!!!!
+    </div>
+  {% endif %}
+
+{% endblock %} 
+
+{% block extra_js  %}
+<script>
+// Function declaration outside the ready handler
+function myFunction(term_value) {
+  // Function body
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramValue = urlParams.get('student_id');
+  term = term_value
+  student_id = paramValue
+  target_url = '{% url "marksheet_filter" %}?term='+term+'&&student_id='+student_id
+  $.ajax({
+    url: target_url,
+    method: 'GET',
+    contentType: 'application/json',
+    //data: JSON.stringify(requestData),
+    success: function(response) {
+      console.log(response)
+      if(response.marks !== null && response.percentage !==null){
+        console.log("TRUEEEEEEEE")
+        $('#marksheet_table').css({display:"inline-table"})
+        $('#term_error').css({display:"none"})
+        $('#english').text(response.marks.marks_english);
+        $('#nepali').text(response.marks.marks_nepali);
+        $('#math').text(response.marks.marks_math);
+        $('#science').text(response.marks.marks_science);
+        $('#social').text(response.marks.marks_social);
+        $('#occupation').text(response.marks.marks_occupation);
+        $('#eph').text(response.marks.marks_eph);
+        $('#percentage').text("Total Percentage "+ response.percentage+"%");
+        $('#obtained').text(response.obtained);
+      }
+      else{
+        $('#term_error').css({display:"flex"})
+        $('#marksheet_table').css({display:"none"})
+      }
+      //console.log(response);
+      // Handle the successful response here
+    },
+    error: function(xhr, status, error) {
+      console.error(error);
+      // Handle errors here
+    }
+  });
+}
+
+$(document).ready(function() {
+  // Change the value of select field to latest_marks term when page loads
+  $('#id_term_select').val('{{latest_marks.term}}');
+
+  $('#id_term_select').change(function() {
+    // Function to execute when the select field value changes
+    var selectedValue = $(this).val();
+    console.log('Selected value:', selectedValue);
+    myFunction(selectedValue);
+  });
+});
+</script>
+{% endblock extra_js %}

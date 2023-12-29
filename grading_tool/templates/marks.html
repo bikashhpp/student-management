@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n django_bootstrap5 %}
+{% block title %}Marks{% endblock title %}
+{% block content %}
+  <div class="container">    
+    <form method="post">
+        <div class="heading text-center mt-3 bg-dark text-white">
+          <h1>Add your Marks</h1>
+        </div>
+        <div class="container col-md-7 col-lg-8">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button type="submit" class="  btn btn-success ">save</button>
+          {% comment %} <div class="row">
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_english show_label=False %}
+            </div>
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_nepali show_label=False %}
+            </div>
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_science show_label=False %}
+            </div>
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_math show_label=False %}
+            </div>
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_social show_label=False %}
+            </div>
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_eph show_label=False %}
+            </div>
+            <div class="col-sm-6">
+              {% bootstrap_field form.marks_occupation  show_label=False %}
+            </div>
+            <div class="col-sm-6">
+                {% bootstrap_field form.marks_economics  show_label=False %}
+              </div>
+          </div>
+          <button type="submit" class="  btn btn-success ">save</button>
+        </div>
+      </form> {% endcomment %}
+  </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Student List{% endblock %}
+{% block content %}
+
+
+  
+<div class="container table mt-3">
+        
+    <table class="table">
+        
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Standard</th>
+            <th scope="col">Age</th>
+            <th scope="col">Address</th>
+            <th scope="col">Contact</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"></th>
+            <td>{{detail.student_name}}</td>
+            <td>{{detail.student_email}}</td>
+            <td>{{detail.student_standard}}</td>
+            <td>{{detail.student_age}}</td>
+            <td>{{detail.student_address}}</td>
+            <td>{{detail.student_contact}}</td>
+            
+            <td> <a href="{% url 'update' detail.id %}" class="btn btn-primary">Edit</a></td>
+            <td> <a href="{% url 'marks' %}" class="btn btn-primary">Add marks</a></td>
+            <td> <a href="{% url 'marksheet' %}?student_id={{detail.id}}" class="btn btn-primary">view marksheet</a></td>
+          </tr>
+        
+        </tbody>
+         
+      </table>
+    
+</div>
+
+{% endblock %} 
+
+{% comment %} <th scope="row">{{forloop.counter}}</th>
+name{{detail.student_name}}
+age{{detail.student_age}}
+number{{detail.student_number}}
+email{{detail.student_email}}
+address{{detail.student_address}}
+standard{{detail.student_standard}}
+{{forloop.counter}}
+{% endblock %}  {% endcomment %}

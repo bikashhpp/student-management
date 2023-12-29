@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n django_bootstrap5 %}
+{% block title %}Student Details{% endblock title %}
+{% block content %}
+  <div class="container">    
+    <form method="post">
+      <div class="heading text-center mt-3 bg-dark text-white">
+        <h1>Update your details </h1>
+      </div>
+        <div class="container col-md-7 col-lg-8">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-6">
+              {% bootstrap_field form.student_name show_label=True %}
+            </div>
+             {% comment %} <div class="col-sm-6">
+              {% bootstrap_field form.student_name show_label=False %}
+            </div>  {% endcomment %}
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_age show_label=True%}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_address show_label=True %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_contact show_label=True %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_email show_label=True %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_standard show_label=True %}
+            </div>
+            <div class="col-sm-12">
+              {% bootstrap_field form.student_rollno show_label=True %}
+            </div>
+          </div>
+          {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+        </div>
+      </form>
+  </div>
+{% endblock %}
