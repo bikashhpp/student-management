@@ -2,79 +2,59 @@
 {% load i18n django_bootstrap5 %}
 {% block title %}Student Details{% endblock title %}
 {% block content %}
-  <div class="container">    
-    <form method="post">
-        <div class="heading text-center mt-3 bg-dark text-white">
-          <h1>Add your details </h1>
-        </div>
-        <div class="container col-md-7 col-lg-8">
-          {% csrf_token %}
-          <div class="row">
-            <div class="col-sm-6">
-              {% bootstrap_field form.student_name show_label=False %}
-            </div>
-             {% comment %} <div class="col-sm-6">
-              {% bootstrap_field form.student_name show_label=False %}
-            </div>  {% endcomment %}
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_age show_label=False %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_address show_label=False %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_contact show_label=False %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_email show_label=False %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_standard show_label=False %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_rollno show_label=False %}
-            </div>
-          </div>
-          <button type="submit" class="  btn btn-success ms-5">save</button>
-        </div>
-      </form>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'student_profile.css' %}">
+    
+<section class="pb-4">
+ <div class="border rounded-5">
+   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+     <div class="container h-100">
+       <div class="row d-flex justify-content-center align-items-center h-100">
+         <div class="col-12 col-md-9 col-lg-7 col-xl-7">
+           <div class="card mt-4 ">
+                       <form method="post">
+                          {% csrf_token %}
+                          <div class="heading text-center bg-dark text-white">
+                            <h1>Add your details </h1>
+                          </div>
+                          <div class="container col-md-7 col-lg-8">
+                            
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_name">Student name</label><input type="text" name="student_name" maxlength="250" class="form-control" placeholder="Student name" required="" id="id_student_name"></div>
+                              </div>
+                              
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_age">Student age</label><input type="number" name="student_age" class="form-control" placeholder="Student age" required="" id="id_student_age"></div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_address">Student address</label><input type="text" name="student_address" maxlength="250" class="form-control" placeholder="Student address" required="" id="id_student_address"></div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_contact">Student contact</label><input type="number" name="student_contact" class="form-control" placeholder="Student contact" required="" id="id_student_contact"></div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_email">Student email</label><input type="text" name="student_email" maxlength="250" class="form-control" placeholder="Student email" id="id_student_email"></div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_standard">Student standard</label><input type="number" name="student_standard" class="form-control" placeholder="Student standard" required="" id="id_student_standard"></div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_rollno">Student rollno</label><input type="number" name="student_rollno" class="form-control" placeholder="Student rollno" required="" id="id_student_rollno"></div>
+                              </div>
+                            </div>
+                            <button type="submit" class="  btn btn-success ms-5">save</button>
+                          </div>
+                        </form>
+               </div>
+           </div>
+         </div>
+       </div>
+    </div>
   </div>
+</section>                   
+
 {% endblock %}
 
 
-        
-
-
-
-
-       {% comment %} <div class="heading text-center mt-3 bg-transparent text-body">
-        <h1>Add your deatails </h1>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Name</span>
-            <input Name="student_name" type="text" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">age</span>
-            <input Name="student_age" type="text" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Address</span>
-            <input type="text" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Contact</span>
-            <input type="text" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Standard</span>
-            <input type="text" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Email</span>
-            <input type="text" class="form-control">
-          </div>
-          <button type="submit" class="  btn btn-success ms-3">save</button>
-        </div>
-    </form> {% endcomment %} 
         

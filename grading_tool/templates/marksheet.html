@@ -10,22 +10,21 @@
   <img src="{{latest_marks.students.student_photo.url}}" class="rounded float-end" height ="100px" alt= "student_photo">
   <h5>STUDENT CLASS:{{latest_marks.students.student_standard }} </h5>
   <h5>STUDENT ROLL NO:{{latest_marks.students.student_rollno }} </h5> 
+  <div class="col-sm-3 mb-3">
+     
+    <select name="term" class="form-select" id="id_term_select">
+      <option value="First Term" selected="">First Term</option>
+      <option value="Second Term">Second Term</option>
+      <option value="Final Term">Final Term</option>
+    </select>         
+  </div>
   
 </div>
 
-
-       
-  
+ 
   <div class="container col-sm-7  mt-3">
-    <div class="col-sm-3 mb-3">
-      {% comment %} <label class="form-label" for="id_term_select">Term</label> {% endcomment %}
-      <select name="term" class="form-select" id="id_term_select">
-        <option value="First Term" selected="">First Term</option>
-        <option value="Second Term">Second Term</option>
-        <option value="Final Term">Final Term</option>
-      </select>         
-    </div>
-    {% comment %} <a href="{% url 'generate_pdf' %}">Download Marksheet PDF</a> {% endcomment %}
+   
+   
   {% if latest_marks %}
     <table class="table table-responsive" id="marksheet_table">
       <thead>

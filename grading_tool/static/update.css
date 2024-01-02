@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+
+  .heading {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type="text"]:focus,
+  input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+    .gradient-custom-3 {
+           
+      background:#b266ff
+    }
