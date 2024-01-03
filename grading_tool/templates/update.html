@@ -7,53 +7,51 @@
 
 <section class="pb-4">
   <div class="border rounded-5">
-    
-        </style>
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
           <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-12 col-md-9 col-lg-7 col-xl-7">
                 <div class="card mt-4 ">
+                   <form method="post">
+                        <div class="heading text-center">
+                          <h1>Update your details</h1>
+                        </div>
+                          <div class="container col-md-7 col-lg-8">
+                            {% csrf_token %}
+                           <div class="row">
 
-
- 
-    <form method="post">
-      <div class="heading text-center">
-        <h1>Update your details</h1>
-      </div>
-        <div class="container col-md-7 col-lg-8">
-          {% csrf_token %}
-          <div class="row">
-            <div class="col-sm-6">
-              {% bootstrap_field form.student_name show_label=True %}
+                              <div class="col-sm-6">
+                                {% bootstrap_field form.student_name show_label=True %}
+                              </div>
+                              <div class="col-sm-12">
+                                {% bootstrap_field form.student_age show_label=True%}
+                              </div>
+                              <div class="col-sm-12">
+                                {% bootstrap_field form.student_address show_label=True %}
+                              </div>
+                              <div class="col-sm-12">
+                                {% bootstrap_field form.student_contact show_label=True %}
+                              </div>
+                              <div class="col-sm-12">
+                                {% bootstrap_field form.student_email show_label=True %}
+                              </div>
+                              <div class="col-sm-12">
+                                {% bootstrap_field form.student_standard show_label=True %}
+                              </div>
+                              <div class="col-sm-12">
+                                {% bootstrap_field form.student_rollno show_label=True %}
+                              </div>
+                              <div class="mb-2">
+                               {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+                              </div>
+                          
+                           </div>
+                          
+                   </form>
+                </div>
+              </div>
             </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_age show_label=True%}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_address show_label=True %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_contact show_label=True %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_email show_label=True %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_standard show_label=True %}
-            </div>
-            <div class="col-sm-12">
-              {% bootstrap_field form.student_rollno show_label=True %}
-            </div>
-          <div class="mb-2">
-          {% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
         </div>
-      </form>
   </div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </section>
 {% endblock %}

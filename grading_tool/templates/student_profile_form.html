@@ -12,12 +12,12 @@
        <div class="row d-flex justify-content-center align-items-center h-100">
          <div class="col-12 col-md-9 col-lg-7 col-xl-7">
            <div class="card mt-4 ">
-                       <form method="post">
-                          {% csrf_token %}
-                          <div class="heading text-center bg-dark text-white">
+               <form method="post"enctype="multipart/form-data" >
+                  {% csrf_token %}
+                      <div class="heading text-center bg-dark text-white">
                             <h1>Add your details </h1>
-                          </div>
-                          <div class="container col-md-7 col-lg-8">
+                      </div>
+                      <div class="container col-md-7 col-lg-8">
                             
                             <div class="row">
                               <div class="col-sm-6">
@@ -42,18 +42,23 @@
                               <div class="col-sm-12">
                                 <div class="mb-3"><label class="visually-hidden" for="id_student_rollno">Student rollno</label><input type="number" name="student_rollno" class="form-control" placeholder="Student rollno" required="" id="id_student_rollno"></div>
                               </div>
+                              <div>
+                              <label for="id_student_photo"></label>
+                              <input type="file" name="student_photo" accept="image/*" id="id_student_photo">
+                              </div>
+                              <button type="submit" class="  btn btn-success mt-3">save</button>
                             </div>
-                            <button type="submit" class="  btn btn-success ms-5">save</button>
-                          </div>
-                        </form>
-               </div>
+                      </div>      
+                              
+               </form>
+              
            </div>
          </div>
        </div>
-    </div>
-  </div>
-</section>                   
-
+     </div>
+   </div>
+ </div> 
+</section>     
 {% endblock %}
 
 

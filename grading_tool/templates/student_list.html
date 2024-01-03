@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Student List{% endblock %}
 {% block content %}
-
-    <div class="container table mt-3">
-        
-        <table class="table">
-            
-            <thead>
+  <div class="container table mt-3">
+     <table class="table">
+       <thead>
               <tr>
                 <th scope="col">id</th>
                 <th scope="col">Name</th>
@@ -14,25 +11,20 @@
                 <th scope="col">Standard</th>
                 <th scope="col"></th>
               </tr>
-            </thead>
-            <tbody>
-                {% for student in students %}
+       </thead>
+         <tbody>
+            {% for student in students %}
               <tr>
                 <th scope="row">{{student.id}}</th>
                 <td>{{ student.student_name }}</td>
                 <td>{{ student.student_email }}</td>
                 <td>{{ student.student_standard }}</td>
                 <td> <a href="{% url 'detail' student.id %}" class="btn btn-primary">Student detail</a></td>
-                <td> <a href="{% url 'delete' student.id %}" class="btn btn-danger">Delete</a></td>
-               
-                
+                <td> <a href="{% url 'delete' student.id %}" class="btn btn-danger">Delete</a></td>      
               </tr>
               {% endfor %}
-            </tbody>
-             
-          </table>
+         </tbody>  
+     </table>
         
-    </div>
-        
-    </ul>  
+  </div> 
  {% endblock %}
