@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
 
 
 # Create your models here.
@@ -21,14 +22,14 @@ class Marks(models.Model):
     TERM_CHOICES = (
         ("First Term", "first_term"), ("Second Term", "second_term"), ("Final Term", "final_term")
     )
-    marks_english = models.IntegerField()
-    marks_nepali = models.IntegerField()
-    marks_science = models.IntegerField()
-    marks_math = models.IntegerField()
-    marks_social = models.IntegerField()
-    marks_eph = models.IntegerField()
-    marks_occupation = models.IntegerField()
-    marks_economics = models.IntegerField()
+    marks_english = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_nepali = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_science = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_math = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_social = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_eph = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_occupation = models.IntegerField(validators=[MaxValueValidator(100)])
+    marks_economics = models.IntegerField(validators=[MaxValueValidator(100)])
     students = models.ForeignKey(Student_profile, on_delete=models.CASCADE, blank=True, null=True)
     term = models.CharField(max_length=250, choices=TERM_CHOICES, default="first term")
 
@@ -51,11 +52,3 @@ class Marks(models.Model):
     def Obtained_marks(self):
         Total_marks = self.marks_english + self.marks_nepali + self.marks_science + self.marks_math + self.marks_social + self.marks_eph + self.marks_occupation
         return Total_marks
-
-    # class StudentUser(User):
-#     user = User.objects.create_user('myusername', 'myemail@crazymail.com', 'mypassword')
-
-# # Update fields and then save again
-#     user.first_name = 'Tyrone'
-#     user.last_name = 'Citizen'
-#     user.save()

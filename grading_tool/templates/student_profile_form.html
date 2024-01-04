@@ -15,32 +15,41 @@
                <form method="post"enctype="multipart/form-data" >
                   {% csrf_token %}
                       <div class="heading text-center bg-dark text-white">
-                            <h1>Add your details </h1>
+                            <h1>ADD YOUR DETAILS </h1>
                       </div>
                       <div class="container col-md-7 col-lg-8">
                             
                             <div class="row">
-                              <div class="col-sm-6">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_name">Student name</label><input type="text" name="student_name" maxlength="250" class="form-control" placeholder="Student name" required="" id="id_student_name"></div>
-                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_name">Student name</label>
+                                  <input type="text" name="student_name" maxlength="250" class="form-control" placeholder="Student name"  id="id_student_name" pattern="[A-Z][a-zA-Z]{3,59}( [A-Z][a-zA-Z]{3,59})?"title="Name should be 4 to 120 characters with the first letter capitalized" required></div>
+                              
+                                </div>
+                                
                               
                               <div class="col-sm-12">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_age">Student age</label><input type="number" name="student_age" class="form-control" placeholder="Student age" required="" id="id_student_age"></div>
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_age">Student age</label>
+                                  <input type="number" name="student_age" class="form-control" placeholder="Student age" required="" id="id_student_age" min="2" max="120" title="Age must be between 2 and 120" required></div>
                               </div>
                               <div class="col-sm-12">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_address">Student address</label><input type="text" name="student_address" maxlength="250" class="form-control" placeholder="Student address" required="" id="id_student_address"></div>
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_address">Student address</label>
+                                  <input type="text" name="student_address" maxlength="250" class="form-control" placeholder="Student address" required="" id="id_student_address"  ></div>
                               </div>
                               <div class="col-sm-12">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_contact">Student contact</label><input type="number" name="student_contact" class="form-control" placeholder="Student contact" required="" id="id_student_contact"></div>
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_contact">Student contact</label>
+                                 <input type="number" name="student_contact" class="form-control" placeholder="Student contact" required="" id="id_student_contact" minlength="4" maxlength="20" title="Please enter a valid phone number (4 to 20 characters)" required></div>
                               </div>
                               <div class="col-sm-12">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_email">Student email</label><input type="text" name="student_email" maxlength="250" class="form-control" placeholder="Student email" id="id_student_email"></div>
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_email">Student email</label>
+                                  <input type="email" name="student_email" maxlength="250" class="form-control" placeholder="Student email" id="id_student_email"></div>
                               </div>
                               <div class="col-sm-12">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_standard">Student standard</label><input type="number" name="student_standard" class="form-control" placeholder="Student standard" required="" id="id_student_standard"></div>
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_standard">Student standard</label>
+                                  <input type="number" name="student_standard" class="form-control" placeholder="Student standard" required="" id="id_student_standard"min="1" max="120" required></div>
                               </div>
                               <div class="col-sm-12">
-                                <div class="mb-3"><label class="visually-hidden" for="id_student_rollno">Student rollno</label><input type="number" name="student_rollno" class="form-control" placeholder="Student rollno" required="" id="id_student_rollno"></div>
+                                <div class="mb-3"><label class="visually-hidden" for="id_student_rollno">Student rollno</label>
+                                  <input type="number" name="student_rollno" class="form-control" placeholder="Student rollno" required="" id="id_student_rollno" min="1" max="100" required ></div>
                               </div>
                               <div>
                               <label for="id_student_photo"></label>

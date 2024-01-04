@@ -12,13 +12,15 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-9 col-lg-7 col-xl-7">
             <div class="card mt-4 ">
-              <form method="post" >
+              <form method="post"class="needs-validation" novalidate  title="Marks should be less than 100" required >
                   <div class="heading text-center bg-dark text-white">
                     <h1>Add your Marks</h1>
                   </div>
                   <div class="container col-md-7 col-lg-8">
+                    
                     {% csrf_token %}
-                    {% bootstrap_form form %}
+                    {% bootstrap_form form max="99" %}
+
                   
                     <button type="submit" class="  btn btn-success ">save</button>
                   </div>  
