@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Student List{% endblock %}
 {% block content %}
-<div class="heading text-center mt-3 bg-dark text-white">
+<div class="heading text-center bg-dark text-white">
   <h1>Marksheet</h1>
 </div>
-<div class="container col-sm-6  mt-3">
+<div class="container col-sm-6 ">
   <h5>STUDENT NAME: {{latest_marks.students.student_name }}</h5>
   <img src="{{latest_marks.students.student_photo.url}}" class="rounded float-end" height ="100px" alt= "student_photo">
   <h5>STUDENT CLASS:{{latest_marks.students.student_standard }} </h5>

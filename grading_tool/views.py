@@ -12,6 +12,8 @@ from django.views.generic import DetailView, UpdateView, DeleteView, View, Templ
 from .forms import StudentForm
 from .forms import MarksForm
 from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm
+
 # from io import BytesIO
 # from django.http import HttpResponse
 # from reportlab.pdfgen import canvas
@@ -34,6 +36,41 @@ class ProfileCreateView(CreateView):
     form_class = StudentForm
     template_name = 'student_profile_form.html'
     success_url = reverse_lazy('student_list')
+
+
+    def form_valid(self, form):
+        # Custom validations for multiple fields
+        student_name = form.cleaned_data.get('student_name')
+        student_age = form.cleaned_data.get('student_age')
+        student_email = form.cleaned_data.get('student_email')
+        student_address = form.cleaned_data.get('student_address')
+        
+
+        # Add your validation logic here for each field
+        if len(student_name) < 3:  # Example validation: student_name should have at least 3 characters
+            form.add_error('student_name', 'name should be at least 3 characters long.')
+
+        if student_age < 18 or student_age > 120:  # Example validation: student_age should be between 18 and 120
+            form.add_error('student_age', 'age should be between 18 and 120.')
+
+        # Example validation for student_email format using regular expression
+        import re
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", student_email):
+            form.add_error('student_email', 'Enter a valid Email address.')
+
+        if len(student_address) < 4:  # Example validation: student_address should have at least 10 characters
+            form.add_error('student_address', 'address should be at least 5 characters long.')
+
+        # Check if any validation errors occurred
+        if form.errors:
+            return self.form_invalid(form)
+
+        return super().form_valid(form)
+
+
+
+
+    
 
 
 class StudentDetailView(DetailView):
@@ -139,22 +176,36 @@ class LoginView(View):
             return render(request, self.template_name)
 
 
+# class RegisterView(View):
+#     template_name = 'register.html'
+
+#     def get(self, request):
+#         form = CustomUserCreationForm()
+#         return render(request, self.template_name, {'form': form})
+
+#     def post(self, request):
+#         form = CustomUserCreationForm()(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             messages.success(request, f'Account created for {username}. You can now log in.')
+#             return redirect('login')  # Replace 'login' with your login URL name
+#         return render(request, self.template_name, {'form': form})
 class RegisterView(View):
     template_name = 'register.html'
 
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomUserCreationForm()  # Use the CustomUserCreationForm
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)  # Use the CustomUserCreationForm
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}. You can now log in.')
             return redirect('login')  # Replace 'login' with your login URL name
         return render(request, self.template_name, {'form': form})
-
 
 class Landing_page(TemplateView):
     template_name = 'landing_page.html'

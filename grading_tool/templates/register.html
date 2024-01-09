@@ -25,7 +25,7 @@
                       {% csrf_token %}
                       
                           <div class ="mt-5">
-                            <div class="form-outline mb-4">
+                            {% comment %} <div class="form-outline mb-4">
                             <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" class="form-control" placeholder="Username" required="" aria-describedby="id_username_helptext" id="id_username pattern="[a-zA-Z0-9_]+" minlength="4" maxlength="20" required">
                             <label class="form-label" for="id_username"></label>
                             </div>
@@ -37,7 +37,26 @@
                             <div class="form-outline mb-4">
                             <input type="password" name="password2" autocomplete="new-password" class="form-control" placeholder="Password confirmation" required="" aria-describedby="id_password2_helptext" id="id_password2">
                             <label class="form-label" for="id_password2"></label>
-                            </div>
+                            </div> {% endcomment %}
+                            {% csrf_token %}
+                            {% comment %} {% bootstrap_form form %} {% endcomment %}
+
+                            {% bootstrap_field form.username show_help=false required_css_class='my-5' %}
+                            {% bootstrap_field form.email show_help=false %}
+                            {% bootstrap_field form.password1 show_help=false %}
+                            {% bootstrap_field form.password2 show_help=false %}
+
+                            {% comment %} {% for field in form %}
+                                <div>
+                                    {{ field.label_tag }}
+                                    
+                                    {{ field }}
+                                    {% for error in field.errors %}
+                                        <span style="color: red;">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %} {% endcomment %}
+                            
 
 
                             <div class="d-flex justify-content-center">
@@ -60,3 +79,27 @@
 </body>
 </html>
 
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% for error in field.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html> {% endcomment %}

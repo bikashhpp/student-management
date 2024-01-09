@@ -12,7 +12,7 @@
        <div class="row d-flex justify-content-center align-items-center h-100">
          <div class="col-12 col-md-9 col-lg-7 col-xl-7">
            <div class="card mt-4 ">
-               <form method="post"enctype="multipart/form-data" >
+                {% comment %} <form method="post"enctype="multipart/form-data" >
                   {% csrf_token %}
                       <div class="heading text-center bg-dark text-white">
                             <h1>ADD YOUR DETAILS </h1>
@@ -53,13 +53,30 @@
                               </div>
                               <div>
                               <label for="id_student_photo"></label>
-                              <input type="file" name="student_photo" accept="image/*" id="id_student_photo">
+                              <input type="file" name="student_photo" accept="image/*" id="id_student_photo" required>
                               </div>
                               <button type="submit" class="  btn btn-success mt-3">save</button>
                             </div>
                       </div>      
                               
-               </form>
+               </form>  {% endcomment %}
+               <form method="post">
+               {% csrf_token %}
+               <div class="heading text-center bg-dark text-white">
+                <h1>ADD YOUR DETAILS </h1>
+              </div>
+               <div class="container col-md-7 col-lg-8">
+               {% bootstrap_field form.student_name show_label=false  %}
+               {% bootstrap_field form.student_age show_label=false  %}
+               {% bootstrap_field form.student_rollno show_label=false  %}
+               {% bootstrap_field form.student_address show_label=false  %}
+               {% bootstrap_field form.student_contact show_label=false  %}
+               {% bootstrap_field form.student_email show_label=false  %}
+               {% bootstrap_field form.student_standard show_label=false  %}
+               {% bootstrap_field form.student_photo show_label=false  %}
+              <button type="submit" class="  btn btn-success mt-3">save</button>
+               </div>
+            
               
            </div>
          </div>

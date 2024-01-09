@@ -2,10 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 
+# from django.core.validators import RegexValidator
+
+
+
 
 # Create your models here.
+   
+
 class Student_profile(models.Model):
-    student_name = models.CharField(max_length=250)
+    student_name = models.CharField(max_length=100)
     student_age = models.IntegerField()
     student_rollno = models.IntegerField()
     student_address = models.CharField(max_length=250)
