@@ -196,3 +196,4 @@ class StudentRankListView(ListView):
              )
         ).order_by('-percentage')
         return queryset
+        
