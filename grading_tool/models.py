@@ -58,3 +58,5 @@ class Marks(models.Model):
     def Obtained_marks(self):
         Total_marks = self.marks_english + self.marks_nepali + self.marks_science + self.marks_math + self.marks_social + self.marks_eph + self.marks_occupation
         return Total_marks
+    
+    

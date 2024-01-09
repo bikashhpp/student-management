@@ -7,19 +7,16 @@ from django.shortcuts import render, redirect
 from .models import Student_profile
 from .models import Marks
 from django.views.generic.list import ListView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView, UpdateView, DeleteView, View, TemplateView
 from .forms import StudentForm
 from .forms import MarksForm
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
+from django.db.models import F, FloatField, ExpressionWrapper
 
-# from io import BytesIO
-# from django.http import HttpResponse
-# from reportlab.pdfgen import canvas
-# from django.http import HttpResponse
-# from django.template.loader import render_to_string
-# from weasyprint import HTML
+#################STUDENT##############
 
 class StudentListView(ListView):
     model = Student_profile
@@ -67,10 +64,6 @@ class ProfileCreateView(CreateView):
 
         return super().form_valid(form)
 
-
-
-
-    
 
 
 class StudentDetailView(DetailView):
@@ -125,13 +118,6 @@ class MarksCreateView(CreateView):
 ################ term ######################
 
 
-# class TermCreateView(CreateView):
-#     model = Marks
-#     form_class = MarksForm
-#     template_name = 'marks.html'
-#     success_url= reverse_lazy('marks')
-
-
 class AjaxView(View):
     def get(self, request, *args, **kwargs):
         from django.forms.models import model_to_dict
@@ -152,10 +138,9 @@ class AjaxView(View):
         return JsonResponse({"marks": value, "percentage": percentage, "obtained": obtained})
 
 
-# class pass_fail(Marks):
 
 
-#############login ////  logout #############
+#############login ////  #############
 
 class LoginView(View):
     template_name = 'login.html'
@@ -176,21 +161,7 @@ class LoginView(View):
             return render(request, self.template_name)
 
 
-# class RegisterView(View):
-#     template_name = 'register.html'
-
-#     def get(self, request):
-#         form = CustomUserCreationForm()
-#         return render(request, self.template_name, {'form': form})
-
-#     def post(self, request):
-#         form = CustomUserCreationForm()(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Account created for {username}. You can now log in.')
-#             return redirect('login')  # Replace 'login' with your login URL name
-#         return render(request, self.template_name, {'form': form})
+#################### REGISTER #################
 class RegisterView(View):
     template_name = 'register.html'
 
@@ -206,13 +177,22 @@ class RegisterView(View):
             messages.success(request, f'Account created for {username}. You can now log in.')
             return redirect('login')  # Replace 'login' with your login URL name
         return render(request, self.template_name, {'form': form})
+    
+################  LANDING PAGE ###############################    
 
 class Landing_page(TemplateView):
     template_name = 'landing_page.html'
 
-    #########################pdf###########
+################## RANK #############################
+class StudentRankListView(ListView):
+    model = Marks
+    template_name = 'student_rank.html'
 
-    class GeneratePDFView(TemplateView):
-        template_name = 'marksheet.html'
-
-        
+    def get_queryset(self):
+        queryset = Marks.objects.annotate(
+            percentage=ExpressionWrapper(
+                (F('marks_english') + F('marks_nepali') + F('marks_science') + F('marks_math') + F('marks_social') + F('marks_eph') + F('marks_occupation')) * 100 / (7 * 100),
+                output_field=FloatField()
+             )
+        ).order_by('-percentage')
+        return queryset

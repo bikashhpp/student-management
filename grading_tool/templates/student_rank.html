@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load i18n django_bootstrap5 %}
+{% block title %}Student Details{% endblock title %}
+{% block content %}
+<section class="pb-4">
+    <div class="border rounded-5">
+      <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-7">
+              <div class="card mt-4 ">
+                    <div class="heading text-center bg-dark text-white">
+                        <h1>Student Ranks based on Percentage</h1>
+                     </div>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Percentage</th>
+                                <th>Rank</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mark in object_list %}
+                                <tr>
+                                    <td>{{ mark.students.student_name }}</td>
+                                    <td>{{ mark.Calculate_percentage }}</td>
+                                    <td>{{ forloop.counter }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+</section>     
+
+    {% endblock %}
