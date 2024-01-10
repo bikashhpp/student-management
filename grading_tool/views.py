@@ -15,7 +15,13 @@ from .forms import MarksForm
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 from django.db.models import F, FloatField, ExpressionWrapper
-# from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.views import View
+from reportlab.pdfgen import canvas
+from .models import Marks
+
+
+
 
 #################STUDENT##############
 
@@ -214,3 +220,48 @@ class StudentRankListView(ListView):
             ).order_by('-percentage')
 
         return queryset
+
+
+
+#######pdf##############
+from django.http import HttpResponse
+from django.views import View
+from reportlab.pdfgen import canvas
+from .models import Marks
+
+class GenerateMarksheetPDF(View):
+    def get(self, request, student_id):
+        student_marks = Marks.objects.filter(students_id=student_id).first()
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="student_marksheet.pdf"'
+
+        pdf = canvas.Canvas(response)
+
+        if student_marks:
+            student_name = student_marks.students.student_name
+            student_rollno = student_marks.students.student_rollno
+            student_standard = student_marks.students.student_standard
+
+            pdf.drawString(100, 800, f"Student Name: {student_name}")
+            pdf.drawString(100, 780, f"Roll Number: {student_rollno}")
+            pdf.drawString(100, 760, f"Standard: {student_standard}")
+            pdf.drawString(100, 740, "Subject-wise Marks:")
+
+            y = 720
+            for field in ['marks_english', 'marks_nepali', 'marks_science', 'marks_math', 'marks_social', 'marks_eph', 'marks_occupation']:
+                subject_name = field.split('_')[1].capitalize()
+                marks = getattr(student_marks, field)
+                pdf.drawString(120, y, f"{subject_name}: {marks}")
+                y -= 20
+
+            percentage = student_marks.Calculate_percentage()
+            obtained_marks = student_marks.Obtained_marks()
+
+            pdf.drawString(100, y - 20, f"Percentage: {percentage}%")
+            pdf.drawString(100, y - 40, f"Obtained Marks: {obtained_marks}")
+
+        pdf.showPage()
+        pdf.save()
+
+        return response

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import StudentListView, ProfileCreateView,StudentDetailView,StudentUpdateView,StudentDeleteView,MarksCreateView,marksListView,AjaxView,RegisterView,LoginView,Landing_page,StudentRankListView
-# from .views import GeneratePDF
+from .views import GenerateMarksheetPDF
 # from django.contrib.auth import views as auth_views
 urlpatterns = [
      path('',Landing_page.as_view(), name='landing_page'),
@@ -16,6 +16,10 @@ urlpatterns = [
      path('register/', RegisterView.as_view(), name='register'),
      path('landing_page/',Landing_page.as_view(), name='landing_page'),
      path('student_rank/', StudentRankListView.as_view(), name='student_rank'),
+     path('generate_marksheet_pdf/<int:student_id>/', GenerateMarksheetPDF.as_view(), name='generate_marksheet_pdf'),
+
+
+   
    
  ]
  

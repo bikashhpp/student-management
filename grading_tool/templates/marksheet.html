@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Student List{% endblock %}
 {% block content %}
+<a href="{% url 'generate_marksheet_pdf' latest_marks.students.id %}" target="_blank">Generate PDF Marksheet</a>
 <div class="heading text-center bg-dark text-white">
   <h1>Marksheet</h1>
 </div>

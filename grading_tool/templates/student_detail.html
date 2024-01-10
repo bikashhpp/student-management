@@ -1,130 +1,117 @@
 {% extends 'base.html' %}
-{% block title %}Student List{% endblock %}
-{% block content %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'student_profile.css' %}">
-    
-<section class="pb-4">
- <div class="border rounded-5">
-   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-     <div class="container h-100">
-       <div class="row d-flex justify-content-center align-items-center h-100">
-         <div class="col-12 col-md-9 col-lg-7 col-xl-7">
-           <div class="card mt-4 ">
-                   <form >
-                         
-                          <div class="heading text-center bg-dark text-white">
-                             <a href="{% url 'update' detail.id %}" class="btn btn-info">Edit</a>
-                             <a href="{% url 'marks' %}" class="btn btn-info">Add marks</a>
-                             <a href="{% url 'marksheet' %}?student_id={{detail.id}}" class="btn btn-info">view marksheet</a>
-                          </div>
-                          <div class="container col-md-7 col-lg-8">
-                            
-                           <div class="row">
-                              <div class="col-sm-6">
-                                <label for="student_name">Name</label>
-                                <input type="text" id="student_name" name="student_name" value="{{detail.student_name}}" disabled>
-                                
-                              </div>      
-                              
-                              <div class="col-sm-6">
-                                <img src="{{detail.student_photo.url}}" class="rounded float-end" height ="100px" alt= "student_photo">    
-                                
-                              </div>      
-                                           
-                              <div class="col-sm-12">
-                                <label for="student_name">Email</label>
-                                <input type="text" id="student_name" name="student_name" value="{{detail.student_email}}" disabled>
-                                
-                              </div>
-                              <div class="col-sm-12">
-                                <label for="student_standard">Standard</label>
-                                <input type="text" id="student_standard" name="student_standard" value="{{detail.student_standard}}" disabled>
-                                
-                              </div>
-                              <div class="col-sm-12">
-                                <label for="student_age">Age</label>
-                                <input type="text" id="student_age" name="student_age" value="{{detail.student_age}}" disabled>
-                              </div>
-                              <div class="col-sm-12">
-                                <label for="student_address">Address</label>
-                                <input type="text" id="student_address" name="student_address" value="{{detail.student_address}}" disabled>
-                              </div>
-                              <div class="col-sm-12">
-                                <label for="student_contact">Contact</label>
-                                <input type="text" id="student_contact" name="student_contact" value="{{detail.student_contact}}" disabled>
-                              </div>
-                              <div class="col-sm-12">
-                                  <label for="student_contact">Roll.no</label>
-                                  <input type="text" id="student_contact" name="student_contact" value="{{detail.student_rollno}}" disabled>
-                              </div>
-                                
-                          </div>
-                        </div>
-                   </form>
-               </div>
-           </div>
-         </div>
-       </div>
+ {% block title %}Student List{% endblock %} 
+ {% block content %}
+  {% load static %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'student_profile.css' %}"
+/>
+<section>
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-7">
+        <div class="card mt-4">
+          <form>
+            <div class="heading text-center bg-dark text-white">
+              <a href="{% url 'update' detail.id %}" class="btn btn-info"
+                >Edit</a
+              >
+              <a href="{% url 'marks' %}" class="btn btn-info">Add marks</a>
+              <a
+                href="{% url 'marksheet' %}?student_id={{detail.id}}"
+                class="btn btn-info"
+                >view marksheet</a
+              >
+            </div>
+            <div class="container col-md-7 col-lg-8">
+              <div class="row">
+                <div class="col-sm-6">
+                  <label for="student_name">Name</label>
+                  <input
+                    type="text"
+                    id="student_name"
+                    name="student_name"
+                    value="{{detail.student_name}}"
+                    disabled
+                  />
+                </div>
+
+                <div class="col-sm-6">
+                  <img
+                    src="{{detail.student_photo.url}}"
+                    class="rounded float-end"
+                    height="100px"
+                    alt="student_photo"
+                  />
+                </div>
+
+                <div class="col-sm-12">
+                  <label for="student_name">Email</label>
+                  <input
+                    type="text"
+                    id="student_name"
+                    name="student_name"
+                    value="{{detail.student_email}}"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-12">
+                  <label for="student_standard">Standard</label>
+                  <input
+                    type="text"
+                    id="student_standard"
+                    name="student_standard"
+                    value="{{detail.student_standard}}"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-12">
+                  <label for="student_age">Age</label>
+                  <input
+                    type="text"
+                    id="student_age"
+                    name="student_age"
+                    value="{{detail.student_age}}"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-12">
+                  <label for="student_address">Address</label>
+                  <input
+                    type="text"
+                    id="student_address"
+                    name="student_address"
+                    value="{{detail.student_address}}"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-12">
+                  <label for="student_contact">Contact</label>
+                  <input
+                    type="text"
+                    id="student_contact"
+                    name="student_contact"
+                    value="{{detail.student_contact}}"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-12">
+                  <label for="student_contact">Roll.no</label>
+                  <input
+                    type="text"
+                    id="student_contact"
+                    name="student_contact"
+                    value="{{detail.student_rollno}}"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-</section> 
-
-
-
-{% endblock %} 
-
-{% comment %} 
-################################
-
-
-
-
-
-
-
-
-
-
-
-
-##################
-
-
-  
-<div class="container table mt-3">
-        
-  <table class="table">
-      
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Standard</th>
-          <th scope="col">Age</th>
-          <th scope="col">Address</th>
-          <th scope="col">Contact</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"></th>
-          <td>{{detail.student_name}}</td>
-          <td>{{detail.student_email}}</td>
-          <td>{{detail.student_standard}}</td>
-          <td>{{detail.student_age}}</td>
-          <td>{{detail.student_address}}</td>
-          <td>{{detail.student_contact}}</td>
-          
-          <td> <a href="{% url 'update' detail.id %}" class="btn btn-primary">Edit</a></td>
-          <td> <a href="{% url 'marks' %}" class="btn btn-primary">Add marks</a></td>
-          <td> <a href="{% url 'marksheet' %}?student_id={{detail.id}}" class="btn btn-primary">view marksheet</a></td>
-        </tr>
-      
-      </tbody>
-       
-    </table>
-  
-</div> {% endcomment %}
+</section>
+{% endblock %}
