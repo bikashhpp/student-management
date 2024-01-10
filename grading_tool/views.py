@@ -15,6 +15,7 @@ from .forms import MarksForm
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 from django.db.models import F, FloatField, ExpressionWrapper
+# from django.template.loader import render_to_string
 
 #################STUDENT##############
 
@@ -186,14 +187,30 @@ class Landing_page(TemplateView):
 ################## RANK #############################
 class StudentRankListView(ListView):
     model = Marks
-    template_name = 'student_rank.html'
+    template_name = 'student_rank.html'  # Update with your actual template name
+    context_object_name = 'object_list'
 
     def get_queryset(self):
-        queryset = Marks.objects.annotate(
-            percentage=ExpressionWrapper(
-                (F('marks_english') + F('marks_nepali') + F('marks_science') + F('marks_math') + F('marks_social') + F('marks_eph') + F('marks_occupation')) * 100 / (7 * 100),
-                output_field=FloatField()
-             )
-        ).order_by('-percentage')
+        term = self.request.GET.get('term')
+        if term:
+            queryset = Marks.objects.filter(term=term).annotate(
+                percentage=ExpressionWrapper(
+                    (
+                        F('marks_english') + F('marks_nepali') + F('marks_science') +
+                        F('marks_math') + F('marks_social') + F('marks_eph') + F('marks_occupation')
+                    ) * 100 / (7 * 100),
+                    output_field=FloatField()
+                 )
+            ).order_by('-percentage')
+        else:
+            queryset = Marks.objects.annotate(
+                percentage=ExpressionWrapper(
+                    (
+                        F('marks_english') + F('marks_nepali') + F('marks_science') +
+                        F('marks_math') + F('marks_social') + F('marks_eph') + F('marks_occupation')
+                    ) * 100 / (7 * 100),
+                    output_field=FloatField()
+                 )
+            ).order_by('-percentage')
+
         return queryset
-        
