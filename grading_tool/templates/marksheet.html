@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Student List{% endblock %}
 {% block content %}
-<a href="{% url 'generate_marksheet_pdf' latest_marks.students.id %}" target="_blank">Generate PDF Marksheet</a>
+
 <div class="heading text-center bg-dark text-white">
   <h1>Marksheet</h1>
 </div>
@@ -10,6 +10,7 @@
   <img src="{{latest_marks.students.student_photo.url}}" class="rounded float-end" height ="100px" alt= "student_photo">
   <h5>STUDENT CLASS:{{latest_marks.students.student_standard }} </h5>
   <h5>STUDENT ROLL NO:{{latest_marks.students.student_rollno }} </h5> 
+  <a href="{% url 'generate_marksheet_pdf' latest_marks.students.id %}" target="_blank">Generate PDF Marksheet</a>
   <div class="col-sm-3 mb-3">
      
     <select name="term" class="form-select" id="id_term_select">

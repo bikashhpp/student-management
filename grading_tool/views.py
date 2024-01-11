@@ -15,9 +15,11 @@ from .forms import MarksForm
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 from django.db.models import F, FloatField, ExpressionWrapper
+from io import BytesIO
 from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 from django.views import View
-from reportlab.pdfgen import canvas
 from .models import Marks
 
 
@@ -224,44 +226,22 @@ class StudentRankListView(ListView):
 
 
 #######pdf##############
-from django.http import HttpResponse
-from django.views import View
-from reportlab.pdfgen import canvas
-from .models import Marks
-
 class GenerateMarksheetPDF(View):
     def get(self, request, student_id):
-        student_marks = Marks.objects.filter(students_id=student_id).first()
+        # Get the necessary data for the specific student marks
+        latest_marks = Marks.objects.filter(students_id=student_id).first()  # Modify this based on your model structure
 
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="student_marksheet.pdf"'
+        # Render the marksheet template with the data
+        template = get_template('marksheet.html')  # Replace with your actual template name
+        html = template.render({'latest_marks': latest_marks})  # Pass the necessary data to the template
 
-        pdf = canvas.Canvas(response)
+        # Create a PDF file
+        result = BytesIO()
+        pdf = pisa.CreatePDF(BytesIO(html.encode('UTF-8')), dest=result)
 
-        if student_marks:
-            student_name = student_marks.students.student_name
-            student_rollno = student_marks.students.student_rollno
-            student_standard = student_marks.students.student_standard
-
-            pdf.drawString(100, 800, f"Student Name: {student_name}")
-            pdf.drawString(100, 780, f"Roll Number: {student_rollno}")
-            pdf.drawString(100, 760, f"Standard: {student_standard}")
-            pdf.drawString(100, 740, "Subject-wise Marks:")
-
-            y = 720
-            for field in ['marks_english', 'marks_nepali', 'marks_science', 'marks_math', 'marks_social', 'marks_eph', 'marks_occupation']:
-                subject_name = field.split('_')[1].capitalize()
-                marks = getattr(student_marks, field)
-                pdf.drawString(120, y, f"{subject_name}: {marks}")
-                y -= 20
-
-            percentage = student_marks.Calculate_percentage()
-            obtained_marks = student_marks.Obtained_marks()
-
-            pdf.drawString(100, y - 20, f"Percentage: {percentage}%")
-            pdf.drawString(100, y - 40, f"Obtained Marks: {obtained_marks}")
-
-        pdf.showPage()
-        pdf.save()
-
-        return response
+        if not pdf.err:
+            # Return PDF file as response
+            response = HttpResponse(result.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="student_marksheet_{student_id}.pdf"'
+            return response
+        return HttpResponse('Failed to generate PDF', status=500)
