@@ -233,7 +233,7 @@ class GenerateMarksheetPDF(View):
 
         # Render the marksheet template with the data
         template = get_template('marksheet.html')  # Replace with your actual template name
-        html = template.render({'latest_marks': latest_marks})  # Pass the necessary data to the template
+        html = template.render({'latest_marks': latest_marks}, )  # Pass the necessary data to the template
 
         # Create a PDF file
         result = BytesIO()
