@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Student List{% endblock %}
+{% block content %}
+
+<div class="heading text-center bg-dark text-white">
+  <h1>Marksheet</h1>
+</div>
+<div class="container col-sm-6 ">
+  <h5>STUDENT NAME: {{latest_marks.students.student_name }}</h5>
+  <img src="{{latest_marks.students.student_photo.url}}" class="rounded float-end" height="100px" alt="student_photo">
+  <h5>STUDENT CLASS:{{latest_marks.students.student_standard }} </h5>
+  <h5>STUDENT ROLL NO:{{latest_marks.students.student_rollno }} </h5>
+  <!-- Inside your HTML template -->
+  <a href="#" onclick="generatePDF('{{ latest_marks.students.id }}', $('#termSelect').val())">Generate PDF Marksheet</a>
+
+  <div class="col-sm-3 mb-3">
+    <select name="term" class="form-select" id="termSelect">
+      <option value="First Term" selected="">First Term</option>
+      <option value="Second Term">Second Term</option>
+      <option value="Final Term">Final Term</option>
+    </select>
+  </div>
+
+  {% endblock %}
+
+  {% block extra_js  %}
+  <script>
+
+    function generatePDF(studentId, term) {
+      $.ajax({
+        url: '/generate_marksheet_pdf/' + studentId + '/' + term + '/',
+        type: 'GET',
+        success: function (response) {
+          // Handle the success response
+          console.log(response);
+          // Open the PDF in a new tab
+          window.open('/generate_marksheet_pdf/' + studentId + '/' + term + '/');
+        },
+        error: function (error) {
+          // Handle the error
+          console.error(error);
+          alert('Failed to generate PDF');
+        }
+      });
+    }
+
+    // The rest of your JavaScript code
+  </script>
+  {% endblock extra_js %}

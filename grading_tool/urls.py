@@ -16,7 +16,10 @@ urlpatterns = [
      path('register/', RegisterView.as_view(), name='register'),
      path('landing_page/',Landing_page.as_view(), name='landing_page'),
      path('student_rank/', StudentRankListView.as_view(), name='student_rank'),
-     path('generate_marksheet_pdf/<int:student_id>/', GenerateMarksheetPDF.as_view(), name='generate_marksheet_pdf'),
+     path('generate_marksheet_pdf/<int:student_id>/<str:term>/', GenerateMarksheetPDF.as_view(), name='generate_marksheet_pdf'),
+    #  path('marksheet_filter/', MarksFilterView.as_view(), name='marksheet_filter'), 
+     
+
 
 
    
