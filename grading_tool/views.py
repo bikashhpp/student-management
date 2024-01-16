@@ -228,28 +228,6 @@ class StudentRankListView(ListView):
 
 
 #######pdf##############
-# class GenerateMarksheetPDF(View):
-#     def get(self, request, student_id):
-#         # Get the necessary data for the specific student marks
-#         # get the dropdown value from the form
-#         # get request 'term'
-#         # latest_marks = Marks.objects.filter(students_id=student_id)  # Modify this based on your model structure
-#         latest_marks = Marks.objects.filter(students_id=student_id).first()  # Modify this based on your model structure
-
-#         # Render the marksheet template with the data
-#         template = get_template('marksheet.html')  # Replace with your actual template name
-#         html = template.render({'latest_marks': latest_marks})  # Pass the necessary data to the template
-
-#         # Create a PDF file
-#         result = BytesIO()
-#         pdf = pisa.CreatePDF(BytesIO(html.encode('UTF-8')), dest=result)
-
-#         if not pdf.err:
-#             # Return PDF file as response
-#             response = HttpResponse(result.getvalue(), content_type='application/pdf')
-#             response['Content-Disposition'] = f'attachment; filename="student_marksheet_{student_id}.pdf"'
-#             return response
-#         return HttpResponse('Failed to generate PDF', status=500)
 class GenerateMarksheetPDF(View):
     def get(self, request, student_id, term):
         # Get the necessary data for the specific student marks and term
@@ -277,21 +255,4 @@ class GenerateMarksheetPDF(View):
         return HttpResponse('Failed to generate PDF', status=500)    
 
 
-
-
-# class MarksFilterView(View):
-#     def get(self, request, *args, **kwargs):
-#         student_id = request.GET.get("student_id", None)
-#         term = request.GET.get("term", None)
-
-#         try:
-#             query = Marks.objects.filter(students__id=student_id, term=term).latest("id")
-#             value = serialize('json', [query, ])
-#             percentage = query.Calculate_percentage()
-#             obtained = query.Obtained_marks()
-#         except:
-#             percentage = None
-#             value = None
-#             obtained = None
-#         return JsonResponse({"marks": value, "percentage": percentage, "obtained": obtained})
 
